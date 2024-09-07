@@ -1,15 +1,10 @@
 cmake_minimum_required(VERSION 3.16.4 FATAL_ERROR)
-project(distanc3d LANGUAGES CXX)
+project(distanc3d VERSION 1.0.0 LANGUAGES CXX)
 
-include(FetchContent)
+option(BUILD_EXAMPLES "Build examples" ON)
 
-FetchContent_Declare(
-  glm
-  GIT_REPOSITORY https://github.com/g-truc/glm.git
-  GIT_TAG 0af55ccecd98d4e5a8d1fad7de25ba429d60e863 # 1.0.1
-)
+add_subdirectory(distanc3d)
 
-FetchContent_MakeAvailable(glm)
-message(STATUS "GLM source: ${glm_SOURCE_DIR}")
-
-add_subdirectory(example)
+if(BUILD_EXAMPLES)
+  add_subdirectory(example)
+endif()

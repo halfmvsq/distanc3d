@@ -9,7 +9,6 @@
 #include <chrono>
 #include <cstdlib>
 #include <iostream>
-#include <memory>
 
 int main(int argc, char* argv[])
 {
@@ -83,7 +82,7 @@ int main(int argc, char* argv[])
             << duration_cast<milliseconds>(tock - tick).count() << std::endl;
 
   const DistanceImageType::Pointer accurateDistanceImage
-    = createImage(seed, std::span{accurateArrivalTimes.data(), accurateArrivalTimes.size()});
+    = createImage(seed, accurateArrivalTimes.data(), accurateArrivalTimes.size());
 
   writeImage<DistanceImageType>(accurateDistanceImage, argv[2]);
 

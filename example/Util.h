@@ -6,7 +6,6 @@
 
 #include <filesystem>
 #include <iostream>
-#include <span>
 
 /**
  * @brief Create a 3D ITK image from raw image data
@@ -17,7 +16,7 @@
  */
 template<typename T>
 typename itk::Image<T, 3>::Pointer createImage(
-  const typename itk::ImageBase<3>::Pointer refImage, const std::span<T> imageData
+    const typename itk::ImageBase<3>::Pointer refImage, const T* imageData, std::size_t imageSize
 )
 {
   using ImportFilterType = itk::ImportImageFilter<T, 3>;
@@ -32,12 +31,12 @@ typename itk::Image<T, 3>::Pointer createImage(
     return nullptr;
   }
 
-  if (!imageData.data())
+  if (!imageData)
   {
     return nullptr;
   }
 
-  if (imageData.size() != refImage->GetLargestPossibleRegion().GetNumberOfPixels())
+  if (imageSize != refImage->GetLargestPossibleRegion().GetNumberOfPixels())
   {
     return nullptr;
   }
@@ -47,7 +46,7 @@ typename itk::Image<T, 3>::Pointer createImage(
   importer->SetOrigin(refImage->GetOrigin());
   importer->SetSpacing(refImage->GetSpacing());
   importer->SetDirection(refImage->GetDirection());
-  importer->SetImportPointer(const_cast<T*>(imageData.data()), imageData.size(), filterOwnsBuffer);
+  importer->SetImportPointer(const_cast<T*>(imageData), imageSize, filterOwnsBuffer);
 
   try
   {

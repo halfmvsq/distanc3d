@@ -37,7 +37,6 @@ endif()
 
 ### Dijkstra example
 add_executable(Dijkstra Dijkstra.cxx)
-target_include_directories(Dijkstra PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
 # Optionally include other priority queue implementations for testing.
 # (These could be added as submodules.)
@@ -56,14 +55,17 @@ target_include_directories(Dijkstra SYSTEM PRIVATE
   ${ITK_INCLUDE_DIRS}
 )
 
-target_link_libraries(Dijkstra PRIVATE ${ITK_LIBRARIES})
+target_link_libraries(Dijkstra PRIVATE
+  distanc3d
+  ${ITK_LIBRARIES}
+)
 
 target_compile_options(Dijkstra PRIVATE
   $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:
-  -Werror -Wall -Wextra -Wpointer-arith -Winit-self -Wunreachable-code -Wshadow -pedantic
-  -Wconversion -Wsign-conversion -O3 >
+  -Wall -Wextra -Wpointer-arith -Winit-self -Wunreachable-code -Wshadow -Wpedantic
+  -Wconversion -Wsign-conversion >
   $<$<CXX_COMPILER_ID:AppleClang>:
-  -Werror -Wall -Wextra -Wpointer-arith -Winit-self -Wunreachable-code -pedantic -Wshadow -O3 >
+  -Werror -Wall -Wextra -Wpointer-arith -Winit-self -Wunreachable-code -Wpedantic -Wshadow >
   $<$<CXX_COMPILER_ID:MSVC>: /W4 /Ox >
 )
 
@@ -80,10 +82,10 @@ target_link_libraries(Maurer PRIVATE ${ITK_LIBRARIES})
 
 target_compile_options(Maurer PRIVATE
   $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:
-  -Werror -Wall -Wextra -Wpointer-arith -Winit-self -Wunreachable-code -Wshadow -pedantic
-  -Wconversion -Wsign-conversion -O3 >
+  -Wall -Wextra -Wpointer-arith -Winit-self -Wunreachable-code -Wshadow -Wpedantic
+  -Wconversion -Wsign-conversion >
   $<$<CXX_COMPILER_ID:AppleClang>:
-  -Werror -Wall -Wextra -Wpointer-arith -Winit-self -Wunreachable-code -pedantic -Wshadow -O3>
+  -Werror -Wall -Wextra -Wpointer-arith -Winit-self -Wunreachable-code -Wpedantic -Wshadow>
   $<$<CXX_COMPILER_ID:MSVC>: /W4 /Ox >
 )
 
@@ -104,10 +106,10 @@ target_link_libraries(FastMarching PRIVATE ${ITK_LIBRARIES})
 
 target_compile_options(FastMarching PRIVATE
   $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:
-  -Werror -Wall -Wextra -Wpointer-arith -Winit-self -Wunreachable-code -Wshadow -pedantic
-  -Wconversion -Wsign-conversion -O3 >
+  -Wall -Wextra -Wpointer-arith -Winit-self -Wunreachable-code -Wshadow -Wpedantic
+  -Wconversion -Wsign-conversion >
   $<$<CXX_COMPILER_ID:AppleClang>:
-  -Werror -Wall -Wextra -Wpointer-arith -Winit-self -Wunreachable-code -pedantic -Wshadow -O3>
+  -Werror -Wall -Wextra -Wpointer-arith -Winit-self -Wunreachable-code -Wpedantic -Wshadow >
   $<$<CXX_COMPILER_ID:MSVC>: /W4 /Ox >
 )
 
